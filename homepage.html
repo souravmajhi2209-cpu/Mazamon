@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mazamon | Shop Everything</title>
+    <style>
+        /* --- CSS Reset & Variables --- */
+        :root {
+            --primary-blue: #0f4c75;
+            --secondary-blue: #3282b8;
+            --primary-green: #28a745;
+            --hover-green: #218838;
+            --light-bg: #f4f9f9;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #72db88; /* Light green accent on logo */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #72db88;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Product Grid --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            flex: 1;
+        }
+
+        .section-title {
+            margin-bottom: 1.5rem;
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--primary-green);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .product-grid {
+            display: grid;
+            /* Auto-responsive grid: fits as many cards as possible */
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            padding-bottom: 3rem;
+        }
+
+        /* --- Product Card --- */
+        .product-card {
+            background: var(--white);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--secondary-blue);
+        }
+
+        /* Updated Image Styles for Real Images */
+        .product-image-container {
+            height: 200px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 10px; /* Padding ensures the image doesn't touch the edges */
+        }
+
+        .product-image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Keeps the whole image visible without cropping */
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover .product-image-container img {
+             transform: scale(1.05); /* Subtle zoom effect on hover */
+        }
+
+        .product-info {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            color: var(--primary-blue);
+            font-weight: bold;
+            margin-top: auto; 
+            margin-bottom: 1rem;
+        }
+
+        .add-btn {
+            background-color: var(--primary-green);
+            color: var(--white);
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .add-btn:hover {
+            background-color: var(--hover-green);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">Mazamon<span>.</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Deals</a></li>
+                    <li><a href="#">Cart (0)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>Welcome to Mazamon</h1>
+        <p>The freshest deals in Blue and Green.</p>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">Featured Products</h2>
+        
+        <div class="product-grid">
+            
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="images/headphones.webp" alt="Headphones">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Electronics</span>
+                    <h3 class="product-title">Wireless Headphones</h3>
+                    <div class="product-price">$59.99</div>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="images/watch.jpg" alt="Watch">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Wearables</span>
+                    <h3 class="product-title">Smart Fitness Watch</h3>
+                    <div class="product-price">$129.50</div>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="images/travelback.jpg" alt="Backpack">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Accessories</span>
+                    <h3 class="product-title">Travel Backpack</h3>
+                    <div class="product-price">$45.00</div>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="images/sneakers.webp" alt="Sneakers">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Fashion</span>
+                    <h3 class="product-title">Running Sneakers</h3>
+                    <div class="product-price">$84.99</div>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="images/coffeeset.jpg" alt="Coffee Set">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Home</span>
+                    <h3 class="product-title">Ceramic Coffee Set</h3>
+                    <div class="product-price">$22.00</div>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="images/instacamera.jpg" alt="Camera">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Electronics</span>
+                    <h3 class="product-title">Instant Camera</h3>
+                    <div class="product-price">$99.00</div>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="images/plant.jpg" alt="Plant">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Home</span>
+                    <h3 class="product-title">Indoor Succulent</h3>
+                    <div class="product-price">$15.50</div>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="images/sunglasses.webp" alt="Sunglasses">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Fashion</span>
+                    <h3 class="product-title">Aviator Sunglasses</h3>
+                    <div class="product-price">$135.00</div>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="images/controller.jpg" alt="Controller">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Gaming</span>
+                    <h3 class="product-title">Pro Gaming Controller</h3>
+                    <div class="product-price">$62.99</div>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="images/cream.jpg" alt="Cream">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Beauty</span>
+                    <h3 class="product-title">Organic Face Cream</h3>
+                    <div class="product-price">$28.45</div>
+                    <button class="add-btn">Add to Cart</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Mazamon Inc. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
